@@ -11,10 +11,6 @@ import { apiConnector } from '../../services/apiconnector';
 import { categories } from '../../services/apis';
 import { TiArrowSortedDown } from "react-icons/ti";
 const NavBar = () => {
-  const subLinks = [
-    { title: 'python', link: "/catalog/python" },
-    { title: 'webdev', link: "/catalog/webdev" }
-  ]
   const { token } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.profile);
   const { totalItems } = useSelector((state) => state.cart);
@@ -22,19 +18,19 @@ const NavBar = () => {
     const location = useLocation();
     return matchPath({ path: route }, location.pathname);
   }
-  // const [subLinks , setSubLinks] = useState([]);
-  // const fetchSublinks = async()=>{
-  //     try{
-  //        const result = await apiConnector("GET",categories.CATEGORIES_API)
-  //        console.log("printing ",result)
-  //        setSubLinks(result.data.data);
-  //     }catch(error){
-  //       console.log("Could not fetch the category list")
-  //     }
-  // }
-  // useEffect(()=>{
-  //   fetchSublinks ();
-  // },[])
+  const [subLinks , setSubLinks] = useState([]);
+  const fetchSublinks = async()=>{
+      try{
+         const result = await apiConnector("GET",categories.CATEGORIES_API)
+         console.log("printing ",result)
+         setSubLinks(result.data.data);
+      }catch(error){
+        console.log("Could not fetch the category list")
+      }
+  }
+  useEffect(()=>{
+    fetchSublinks ();
+  },[])
 
 
 
@@ -75,7 +71,7 @@ const NavBar = () => {
                     </div>
                   ) : (
                     <Link to={link?.path}>
-                      <p className={`${matchRoute(link?.path) ? "text-yellow-25 " : "text-richblack-25"}`}>
+                      <p className={`${matchRoute(link?.path) ? "text-yellow-25 " : "text-richblack-25"} `}>
                         {link.title}
                       </p>
                     </Link>
@@ -84,8 +80,6 @@ const NavBar = () => {
               ))
             }
           </ul>
-
-
         </nav>
 
         <div className='flex gap-x-4 items-center'>
