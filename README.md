@@ -1,16 +1,18 @@
-# 🎓 MERN Stack EdTech Platform
+# 🎓 StudyNotion - MERN Stack EdTech Platform
 
-A full-featured **EdTech web application** built using the MERN stack (MongoDB, Express.js, React, Node.js). This platform allows students to enroll in courses, track progress, take quizzes, and much more. Admins and instructors can manage content, users, and performance analytics.
+**StudyNotion** is a modern, full-featured EdTech web application built using the MERN stack (MongoDB, Express.js, React, Node.js). The platform allows users to learn through interactive courses, take quizzes, and track their progress, while instructors and admins can manage courses, students, and performance analytics.
 
 ## 📌 Features
 
-- 🧑‍🎓 User authentication (JWT)
-- 📚 Course listing, enrollment & progress tracking
-- 🎥 Video lessons with player
-- 📝 Quizzes & assignments
-- 💬 Student-teacher interaction (chat or comments)
-- 📈 Dashboard for users & admin
-- 🛠️ Admin panel for course & user management
+- 🔐 Secure user authentication using JWT
+- 🧑‍🎓 Student and Instructor roles
+- 📚 Course creation, listing & enrollment
+- 🎥 Video content support
+- 📝 Quizzes, assignments & certificates
+- 💬 Comments/discussion section
+- 📈 Dashboard for learners & instructors
+- 🛠️ Admin panel for management
+- 🌙 Dark/light mode toggle
 
 ## 🛠️ Tech Stack
 
@@ -18,15 +20,15 @@ A full-featured **EdTech web application** built using the MERN stack (MongoDB, 
 - React.js  
 - Tailwind CSS  
 - Axios  
-- React Router
+- React Router  
+- Context API
 
 **Backend**:  
 - Node.js  
 - Express.js  
-- MongoDB (Mongoose)  
+- MongoDB with Mongoose  
 - JWT for authentication  
-- Cloudinary (for file uploads, if used)
-- razorpay for payment integration
+- Multer / Cloudinary (media uploads)
 
-## 📂 Folder Structure
+## 📁 Folder Structure
 
