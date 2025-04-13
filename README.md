@@ -29,6 +29,7 @@
 - MongoDB with Mongoose  
 - JWT for authentication  
 - Multer / Cloudinary (media uploads)
+- Razorpay integration for payments
 
-## 📁 Folder Structure
+
 
