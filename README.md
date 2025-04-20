@@ -1,8 +1,35 @@
-# React + Vite
+# 🎓 StudyNotion - MERN Stack EdTech Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**StudyNotion** is a modern, full-featured EdTech web application built using the MERN stack (MongoDB, Express.js, React, Node.js). The platform allows users to learn through interactive courses, take quizzes, and track their progress, while instructors and admins can manage courses, students, and performance analytics.
 
-Currently, two official plugins are available:
+## 📌 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🔐 Secure user authentication using JWT
+- 🧑‍🎓 Student and Instructor roles
+- 📚 Course creation, listing & enrollment
+- 🎥 Video content support
+- 📝 Quizzes, assignments & certificates
+- 💬 Comments/discussion section
+- 📈 Dashboard for learners & instructors
+- 🛠️ Admin panel for management
+- 🌙 Dark/light mode toggle
+
+## 🛠️ Tech Stack
+
+**Frontend**:  
+- React.js  
+- Tailwind CSS  
+- Axios  
+- React Router  
+- Context API
+
+**Backend**:  
+- Node.js  
+- Express.js  
+- MongoDB with Mongoose  
+- JWT for authentication  
+- Multer / Cloudinary (media uploads)
+- Razorpay integration for payments
+
+
+
