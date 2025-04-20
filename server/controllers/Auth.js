@@ -42,7 +42,10 @@ exports.sendotp = async (req, res) => {
         while(result) {
             otp = otpGenerator.generate(6, {
                 upperCaseAlpahbets: false,
+                lowerCaseAlphabets: false,
+                specialChars: false,
             });
+            result = await OTP.findOne({otp: otp});
         }
 
         const otpPayload = {email, otp};

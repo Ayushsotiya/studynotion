@@ -4,7 +4,7 @@ import { Link, matchPath } from 'react-router-dom';
 import { NavbarLinks } from "../../data/navbar-links"
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { IoCartOutline } from "react-icons/io5";
+import { GiShoppingCart } from "react-icons/gi";
 import { useState } from 'react';
 import ProfileDropDown from '../core/Auth/ProfileDropDown';
 import { apiConnector } from '../../services/apiconnector';
@@ -22,7 +22,6 @@ const NavBar = () => {
   const fetchSublinks = async()=>{
       try{
          const result = await apiConnector("GET",categories.CATEGORIES_API)
-         console.log("printing ",result)
          setSubLinks(result.data.data);
       }catch(error){
         console.log("Could not fetch the category list")
@@ -86,7 +85,7 @@ const NavBar = () => {
           {
             user && user?.accountType != "Instrutor" && (
               <Link to={"/dashboard/cart"} className='relative'>
-                <IoCartOutline />
+                <GiShoppingCart  className='bg-white w-7 h-7'/>
                 {
                   totalItems > 0 && <span>{totalItems}</span>
                 }

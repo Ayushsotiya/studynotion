@@ -15,9 +15,8 @@ export const endpoints = {
 }
 
 export const contactusEndpoint = {
-    CONTACT_US_API: BASE_URL + "/react/contact"
-}
-
+    CONTACT_US_API: BASE_URL + "/contact/contactUs",
+  };
 
 //PROFILE ENDPOINTS
 export const profileEndpoints = {
@@ -32,7 +31,7 @@ export const studentEndpoints = {
     SEND_PAYMENT_SUCCESS_EMAIL_API: BASE_URL + "/payment/sendPaymentSuccessEmamil",
 }
 
-//COURSE ENDPOINTS
+//COURSE ENDPOINTSnnn
 export const courseEndpoints = {
     GET_ALL_COURSE_API: BASE_URL + "/course/getAllCourses",
     COURSE_DETAILS_API: BASE_URL + "/course/getCourseDetails",
@@ -50,10 +49,12 @@ export const courseEndpoints = {
     GET_FULL_COURSE_DETAILS_AUTHENTICATED: BASE_URL + "/course/getFullCourseDetails",
     LECTURE_COMPLETIOIN_API: BASE_URL + "/course/updateCourseProgress",
     CREATE_RATING_API: BASE_URL + "/course/createRating",
+    
 }
 
 export const ratingsEndpoints = {
     REVIES_DETIALS_API: BASE_URL + "/course/getReviews",
+    GET_AVERAGE_RATING: BASE_URL + "/course/getAverageRating",
 }
 
 
@@ -63,5 +64,4 @@ export const settingsEndpoints = {
     CHANGE_PASSWORD_API: BASE_URL + "/auth/changePassword",
     DELETE_PROFILE_API: BASE_URL + "/profile/deleteProfile",
 }
-
 

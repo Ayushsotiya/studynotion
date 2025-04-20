@@ -7,25 +7,15 @@ import { contactusEndpoint } from "../../services/apis"
 
 const ContactUsForm = () => {
     const [loading, setLoading] = useState(false)
-    const {
-        register,
-        handleSubmit,
-        reset,
-        formState: { errors, isSubmitSuccessful },
-    } = useForm()
+    const {register,handleSubmit,reset,formState: { errors, isSubmitSuccessful }} = useForm()
 
     const submitContactForm = async (data) => {
         console.log("Form Data - ", data)
         try {
             setLoading(true)
-            const res = await apiConnector(
-                "POST",
-                contactusEndpoint.CONTACT_US_API,
-                data,
-            )
+            const res = await apiConnector("POST",contactusEndpoint.CONTACT_US_API,data,)
             console.log("Email Res - ", res)
             setLoading(false)
-            
         }catch(error) {
             console.log("ERROR MESSAGE - ", error.message)
             setLoading(false)

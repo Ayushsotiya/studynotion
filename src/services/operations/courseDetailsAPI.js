@@ -402,3 +402,21 @@ export const createRating = async (data, token) => {
     toast.dismiss(toastId)
     return success
 }
+
+export const getAverageRating = async (courseId)=>{
+    let  result = null;
+    try{
+        const response = await apiConnector("POST", GET_AVERAGE_RATING, {
+            courseId
+        })
+        console.log("GET_AVERAGE_RATING_API API RESPONSE.................", response)
+        if(!response?.data?.success) {
+            throw new Error("Could Not Fetch Course Average Rating")
+        }
+        result = response?.data?.data
+    }catch(error){
+        console.log("GET_AVERAGE_RATING_API API ERROR.................", error)
+        toast.error(error.message)
+    }
+    return result;
+}
