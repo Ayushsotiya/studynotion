@@ -51,10 +51,7 @@ export default function App() {
           {
             user?.accountType === ACCOUNT_TYPE.STUDENT && (
               <>
-                <Route
-                  path="dashboard/enrolled-courses"
-                  element={<EnrolledCourses />}
-                />
+                <Route path="dashboard/enrolled-courses" element={<EnrolledCourses />}/>
                 <Route path="/dashboard/cart" element={<Cart />} />
               </>
             )
@@ -62,10 +59,7 @@ export default function App() {
           {
             user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
               <>
-                <Route
-                  path="dashboard/add-course"
-                  element={<AddCourses />}
-                />
+                <Route path="dashboard/add-course" element={<AddCourses />}/>
               </>
             )
           }
