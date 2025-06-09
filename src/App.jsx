@@ -30,7 +30,6 @@ export default function App() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { user } = useSelector((state) => state.profile)
-  console.log(user?.accountType)
 
   return (
     <div className='w-screen min-h-screen bg-richblue-900 flex flex-col font-inter'>

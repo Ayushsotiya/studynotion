@@ -18,18 +18,27 @@ const NavBar = () => {
     const location = useLocation();
     return matchPath({ path: route }, location.pathname);
   }
-  const [subLinks , setSubLinks] = useState([]);
-  const fetchSublinks = async()=>{
-      try{
-         const result = await apiConnector("GET",categories.CATEGORIES_API)
-         setSubLinks(result.data.data);
-      }catch(error){
-        console.log("Could not fetch the category list")
-      }
+  const subLinks = [
+    {
+      title: "python",
+      link: "/catalog/python"
+    },
+    {
+      title: "web development",
+      link: "/catalog/web-development"
+    }
+  ]
+  const fetchSublinks = async () => {
+    try {
+      const result = await apiConnector("GET", categories.CATEGORIES_API)
+      setSubLinks(result.data.data);
+    } catch (error) {
+      console.log("Could not fetch the category list", error);
+    }
   }
-  useEffect(()=>{
-    fetchSublinks ();
-  },[])
+  useEffect(() => {
+    fetchSublinks();
+  }, [])
 
 
 
@@ -63,7 +72,7 @@ const NavBar = () => {
                               </Link>
                             ))
                           ) : (
-                            <div></div> 
+                            <div></div>
                           )
                         }
                       </div>
@@ -85,7 +94,7 @@ const NavBar = () => {
           {
             user && user?.accountType != "Instrutor" && (
               <Link to={"/dashboard/cart"} className='relative'>
-                <GiShoppingCart  className='bg-white w-7 h-7'/>
+                <GiShoppingCart className='bg-white w-7 h-7' />
                 {
                   totalItems > 0 && <span>{totalItems}</span>
                 }
