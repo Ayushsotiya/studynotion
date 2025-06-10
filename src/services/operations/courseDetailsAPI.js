@@ -16,7 +16,7 @@ const {
     UPDATE_SUBSECTION_API,
     DELETE_SECTION_API,
     DELETE_SUBSECTION_API,
-    GET_ALL_INSTRUCTOR_COURSES_API,
+    GET_ALL_INSTRUCTOR_COURSE_API,
     DELETE_COURSE_API,
     GET_FULL_COURSE_DETAILS_AUTHENTICATED,
     CREATE_RATING_API,
@@ -278,7 +278,7 @@ export const fetchInstructorCourses = async (token) => {
     let result = []
     const toastId = toast.loading("Loading...")
     try {
-        const response = await apiConnector("GET", GET_ALL_INSTRUCTOR_COURSES_API, null, {
+        const response = await apiConnector("GET", GET_ALL_INSTRUCTOR_COURSE_API, null, {
             Authorization: `Bearer ${token}`,
         })
 
@@ -287,7 +287,7 @@ export const fetchInstructorCourses = async (token) => {
             throw new Error("Could Not Fetch Instructor Courses")
         }
         result = response?.data?.data
-
+        console.log(result);
     } catch(error) {
         console.log("INSTRUCTOR COURSES API ERROR................", error)
         toast.error(error.message)
@@ -300,7 +300,7 @@ export const fetchInstructorCourses = async (token) => {
 export const deleteCourse = async (data, token) => {
     const toastId = toast.loading("Loading...")
     try {
-        const response = await apiConnector("DELETE", DELETE_COURSE_API, data, {
+        const response = await apiConnector("POST", DELETE_COURSE_API, data, {
             Authorization: `Bearer ${token}`,
         })
         console.log("DELETE COURSE API RESPONSE..............", response)

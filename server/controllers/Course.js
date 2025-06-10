@@ -1,5 +1,7 @@
 const Course = require("../models/Course");
 const Category = require("../models/Category");
+const Section = require("../models/Section");
+const SubSection = require("../models/SubSection");
 const User = require("../models/User");
 const { uploadImageToCloudinary } = require("../utils/imageUploader");
 
@@ -15,14 +17,14 @@ exports.createCourse = async (req, res) => {
             courseDescription,
             whatYouWillLearn,
             price,
-            // tag,
+            tag,
             category,
             status,
             instructions,
         } = req.body;
 
         //get thumbnail image from request files
-        // const thumbnail = req.files.thumbnailImage;
+        const thumbnail = req.files.thumbnailImage;
 
         //validation -> check if any of the required fields are missing
         if (
@@ -30,8 +32,8 @@ exports.createCourse = async (req, res) => {
             !courseDescription ||
             !whatYouWillLearn ||
             !price ||
-            // !tag || 
-            // !thumbnail || 
+            !tag || 
+            !thumbnail || 
             !category
         ) {
             res.status(400).json({
@@ -68,11 +70,11 @@ exports.createCourse = async (req, res) => {
         }
 
         // Upload thumbnail Image to Cloudinary
-        // const thumbnailImage = await uploadImageToCloudinary(
-        //     thumbnail, 
-        //     process.env.FOLDER_NAME
-        // );
-        // console.log(thumbnailImage);
+        const thumbnailImage = await uploadImageToCloudinary(
+            thumbnail, 
+            process.env.FOLDER_NAME
+        );
+        console.log(thumbnailImage);
         // create an entry for new Course with the given details
         const newCourse = await Course.create({
             courseName,
@@ -80,9 +82,9 @@ exports.createCourse = async (req, res) => {
             instructor: instructorDetails._id,
             whatYouWillLearn: whatYouWillLearn,
             price,
-            // tag: tag,
+            tag: tag,
             Category: categoryDetails._id,
-            //thumbnail: thumbnailImage.secure_url,
+            thumbnail: thumbnailImage.secure_url,
             status: status,
             instructions: instructions,
         });
@@ -376,15 +378,15 @@ exports.getInstructorCourses = async (req, res) => {
 exports.deleteCourse = async (req, res) => {
     try {
         const { courseId } = req.body
-
-        // Find the course
         const course = await Course.findById(courseId)
+        // Find the course
+        
         if (!course) {
             return res.status(404).json({ message: "Course not found" })
         }
 
         // Unenroll students from the course
-        const studentsEnrolled = course.studentsEnroled
+        const studentsEnrolled = course.studentsEnrolled
         for (const studentId of studentsEnrolled) {
             await User.findByIdAndUpdate(studentId, {
                 $pull: { courses: courseId },

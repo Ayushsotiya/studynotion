@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 
 import { fetchInstructorCourses } from "../../../services/operations/courseDetailsAPI"
 import IconBtn from "../../common/IconBtn"
-import CoursesTable from "./InstructorCourses/courseTable"
+import CoursesTable from "./instructorCourses/CoursesTable"
 import { VscAdd } from "react-icons/vsc"
 
 export default function MyCourses() {
@@ -14,7 +14,7 @@ export default function MyCourses() {
 
     useEffect(() => {
         const fetchCourses = async () => {
-            const result = await fetchInstructorCourses(token)
+            const result = await fetchInstructorCourses(token);
             if(result) {
                 setCourses(result)
             }
@@ -31,7 +31,7 @@ export default function MyCourses() {
                 onClick={() => navigate("/dashboard/add-course")}
             >
                 <VscAdd />
-            </IconBtn>
+            </IconBtn> 
         </div>
         {courses && <CoursesTable courses={courses} setCourses={setCourses} />}
     </div>

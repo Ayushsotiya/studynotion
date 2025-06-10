@@ -69,8 +69,8 @@ router.get('/getAllCourses', getAllCourses);
 //Get Details for a Specific Courses
 router.post('/getCourseDetails', getCourseDetails);
 router.post('/editCourse',auth,isInstructor, editCourse);
-router.post('/getInstructorCourses',auth,isInstructor, getInstructorCourses);
-router.post('/deleteCoursee',auth,isInstructor, deleteCourse);
+router.get('/getInstructorCourses', auth, isInstructor, getInstructorCourses);
+router.post("/deleteCourse", auth, isInstructor, deleteCourse);
 //***********************************************************************
 //              Category Routes (Only By Admin)
 //***********************************************************************

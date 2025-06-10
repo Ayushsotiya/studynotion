@@ -1,5 +1,4 @@
 
-import React from 'react';
 import NavBar from './components/common/NavBar';
 import { Route, Routes } from 'react-router-dom';
 import Home from './pages/home';
@@ -18,17 +17,14 @@ import Settings from './components/core/Dashboard/settings/index';
 import EnrolledCourses from './components/core/Dashboard/EnrolledCourses';
 import Cart from './components/core/Dashboard/cart/index';
 import { useSelector } from 'react-redux';
-import { ACCOUNT_TYPE } from "./utils/constants";
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
-import { getUserDetails } from './services/operations/profileAPI';
+import { ACCOUNT_TYPE } from "./utils/constants";;
 import AddCourses from "./components/core/Dashboard/addCourses/index"
+import MyCourses from "./components/core/Dashboard/MyCourses"
 import './App.css';
+import EditCourse from './components/core/Dashboard/EditCourse/EditCourse';
 
 export default function App() {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+
   const { user } = useSelector((state) => state.profile)
 
   return (
@@ -59,6 +55,8 @@ export default function App() {
             user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
               <>
                 <Route path="dashboard/add-course" element={<AddCourses />}/>
+                <Route path="dashboard/my-courses" element={<MyCourses />}/>
+                <Route path="dashboard/edit-course/:courseId" element={<EditCourse />}/>
               </>
             )
           }
