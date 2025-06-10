@@ -56,7 +56,9 @@ export const ratingsEndpoints = {
     REVIES_DETIALS_API: BASE_URL + "/course/getReviews",
     GET_AVERAGE_RATING: BASE_URL + "/course/getAverageRating",
 }
-
+export const catalogData= {
+    CATALOGPAGEDATA_API:BASE_URL + "/course/getCategoryPageDetails",
+}
 
 export const settingsEndpoints = {
     UPDATE_DISPLAY_PICTURE_API: BASE_URL + "/profile/updateDisplayPicture",
