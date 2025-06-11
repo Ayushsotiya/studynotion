@@ -15,7 +15,6 @@ import DashBoard from "./pages/DashBoard"
 import MyProfile from './components/core/Dashboard/MyProfile';
 import Settings from './components/core/Dashboard/settings/index';
 import EnrolledCourses from './components/core/Dashboard/EnrolledCourses';
-import Cart from './components/core/Dashboard/cart/index';
 import { useSelector } from 'react-redux';
 import { ACCOUNT_TYPE } from "./utils/constants";;
 import AddCourses from "./components/core/Dashboard/addCourses/index"
@@ -24,6 +23,8 @@ import './App.css';
 import EditCourse from './components/core/Dashboard/EditCourse/EditCourse';
 import Catalog from "./pages/Catalog"
 import CourseDetails from "./pages/CourseDetails";
+import Cart from "./components/core/Dashboard/cart/index"
+
 export default function App() {
 
   const { user } = useSelector((state) => state.profile)
@@ -35,7 +36,7 @@ export default function App() {
       <Routes>
         <Route path='/' element={<Home />}></Route>
         <Route path="/catalog/:catalogName" element={<Catalog/>}></Route>
-         <Route path="courses/:courseId" element={<CourseDetails/>} />
+        <Route path="courses/:courseId" element={<CourseDetails/>} />
         <Route path='/login' element={<OpenRoute><Login /></OpenRoute>}></Route>
         <Route path='/signup' element={<OpenRoute><Signup /></OpenRoute>}></Route>
         <Route path='/forgot-password' element={<OpenRoute><ForgotPassword /></OpenRoute>}></Route>
