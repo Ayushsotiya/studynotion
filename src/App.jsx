@@ -1,4 +1,4 @@
-
+import './App.css';
 import NavBar from './components/common/NavBar';
 import { Route, Routes } from 'react-router-dom';
 import Home from './pages/home';
@@ -19,11 +19,12 @@ import { useSelector } from 'react-redux';
 import { ACCOUNT_TYPE } from "./utils/constants";;
 import AddCourses from "./components/core/Dashboard/addCourses/index"
 import MyCourses from "./components/core/Dashboard/MyCourses"
-import './App.css';
 import EditCourse from './components/core/Dashboard/EditCourse/EditCourse';
 import Catalog from "./pages/Catalog"
 import CourseDetails from "./pages/CourseDetails";
 import Cart from "./components/core/Dashboard/cart/index"
+import ViewCourse from "./pages/ViewCourse";
+import VideoDetails from "./components/core/ViewCourse/VideoDetails"
 
 export default function App() {
 
@@ -32,11 +33,10 @@ export default function App() {
   return (
     <div className='w-screen min-h-screen bg-richblue-900 flex flex-col font-inter'>
       <NavBar />
-
       <Routes>
         <Route path='/' element={<Home />}></Route>
-        <Route path="/catalog/:catalogName" element={<Catalog/>}></Route>
-        <Route path="courses/:courseId" element={<CourseDetails/>} />
+        <Route path="/catalog/:catalogName" element={<Catalog />}></Route>
+        <Route path="courses/:courseId" element={<CourseDetails />} />
         <Route path='/login' element={<OpenRoute><Login /></OpenRoute>}></Route>
         <Route path='/signup' element={<OpenRoute><Signup /></OpenRoute>}></Route>
         <Route path='/forgot-password' element={<OpenRoute><ForgotPassword /></OpenRoute>}></Route>
@@ -50,7 +50,7 @@ export default function App() {
           {
             user?.accountType === ACCOUNT_TYPE.STUDENT && (
               <>
-                <Route path="dashboard/enrolled-courses" element={<EnrolledCourses />}/>
+                <Route path="dashboard/enrolled-courses" element={<EnrolledCourses />} />
                 <Route path="/dashboard/cart" element={<Cart />} />
               </>
             )
@@ -58,13 +58,23 @@ export default function App() {
           {
             user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
               <>
-                <Route path="dashboard/add-course" element={<AddCourses />}/>
-                <Route path="dashboard/my-courses" element={<MyCourses />}/>
-                <Route path="dashboard/edit-course/:courseId" element={<EditCourse />}/>
+                <Route path="dashboard/add-course" element={<AddCourses />} />
+                <Route path="dashboard/my-courses" element={<MyCourses />} />
+                <Route path="dashboard/edit-course/:courseId" element={<EditCourse />} />
               </>
             )
           }
         </Route>
+        <Route element={<PrivateRoute><ViewCourse /></PrivateRoute>}>
+            {
+              user?.accountType === ACCOUNT_TYPE.STUDENT &&(
+                <>
+                <Route path='view-course/:courseId/section/:sectionId/sub-section/:subSectionId' element={<VideoDetails></VideoDetails>}></Route>
+                </>
+              )
+            }
+        </Route>
+
         <Route path='*' element={<h1 className='text-white'>404 Not Found</h1>}></Route>
       </Routes>
     </div>

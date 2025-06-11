@@ -5,6 +5,7 @@ const SubSection = require("../models/SubSection");
 const User = require("../models/User");
 const { uploadImageToCloudinary } = require("../utils/imageUploader");
 const {convertSecondsToDuration} =require("../utils/secToDuration")
+const CourseProgress  =require("../models/CourseProgress");
 //function to create a new Course
 exports.createCourse = async (req, res) => {
     try {

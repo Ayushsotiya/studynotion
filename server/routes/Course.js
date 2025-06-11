@@ -43,6 +43,9 @@ const {
     getAllRatingAndReviews,
 } = require('../controllers/RatingAndReview');
 
+const {
+  updateCourseProgress
+} = require("../controllers/CourseProgress");
 //Importing Middlewares
 const {auth, isInstructor, isStudent, isAdmin} = require('../middleware/auth');
 
@@ -71,6 +74,10 @@ router.post('/getCourseDetails', getCourseDetails);
 router.post('/editCourse',auth,isInstructor, editCourse);
 router.get('/getInstructorCourses', auth, isInstructor, getInstructorCourses);
 router.post("/deleteCourse", auth, isInstructor, deleteCourse);
+router.post('/getFullCourseDetails',auth,isStudent,getFullCourseDetails)
+
+router.post("/updateCourseProgress", auth, isStudent, updateCourseProgress);
+
 //***********************************************************************
 //              Category Routes (Only By Admin)
 //***********************************************************************

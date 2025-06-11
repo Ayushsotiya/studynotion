@@ -20,7 +20,7 @@ const {
     DELETE_COURSE_API,
     GET_FULL_COURSE_DETAILS_AUTHENTICATED,
     CREATE_RATING_API,
-    LECTURE_COMPLETIOIN_API,
+    LECTURE_COMPLETION_API,
 } = courseEndpoints
 
 export const getAllCourses = async () => {
@@ -323,7 +323,7 @@ export const getFullDetailsOfCourse = async(courseId, token) => {
     let result = null
     try {
         const response = await apiConnector(
-            "GET", 
+            "POST", 
             GET_FULL_COURSE_DETAILS_AUTHENTICATED, 
             {
                 courseId, 
@@ -337,6 +337,7 @@ export const getFullDetailsOfCourse = async(courseId, token) => {
         if(!response?.data?.success) {
             throw new Error(response.data.message)
         }
+        result = response;
     } catch(error) {
         console.log("COURSE_FULL_DETAILS_API API ERROR...................", error)
         result = error.response.data
@@ -350,33 +351,31 @@ export const getFullDetailsOfCourse = async(courseId, token) => {
 
 //mark a lecture as completed
 export const markLectureAsComplete = async (data, token) => {
-    let result = null
-    console.log("Mark complete data", data)
-    const toastId = toast.loading("Loading...")
-    try {
-        const response = await apiConnector("POST", LECTURE_COMPLETIOIN_API, data, {
-            Authorization: `Bearer ${token}`
-        })
+  let result = null
+  console.log("mark complete data", data)
+  const toastId = toast.loading("Loading...")
+  try {
+    const response = await apiConnector("POST", LECTURE_COMPLETION_API, data, {
+      Authorization: `Bearer ${token}`,
+    })
+    console.log(
+      "MARK_LECTURE_AS_COMPLETE_API API RESPONSE............",
+      response
+    )
 
-        console.log(
-            "MARK_LECTURE_AS_COMPLETE_API API RESPONSE.................",
-            response
-        )
-
-        if(!response.data.message) {
-            throw new Error(response.data.error)
-        }
-        toast.success("Lecture Completed")
-        result = false
-    } catch(error) {
-        console.log("MARK_LECTURE_AS_COMPLETE_API API ERROR...............", error)
-        toast.error(error.message)
-        result = false
+    if (!response.data.message) {
+      throw new Error(response.data.error)
     }
-    toast.dismiss(toastId)
-    return result
+    toast.success("Lecture Completed")
+    result = true
+  } catch (error) {
+    console.log("MARK_LECTURE_AS_COMPLETE_API API ERROR............", error)
+    toast.error(error.message)
+    result = false
+  }
+  toast.dismiss(toastId)
+  return result
 }
-
 
 // create a rating for course
 export const createRating = async (data, token) => {

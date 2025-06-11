@@ -5,6 +5,7 @@ const mailSender = require("../utils/mailSender")
 const mongoose = require("mongoose")
 const {courseEnrollmentEmail} = require("../mail/templates/courseEnrollmentEmail");
 const { paymentSuccessEmail } = require("../mail/templates/paymentSuccessEmail")
+const CourseProgress  = require("../models/CourseProgress");
 const crypto = require("crypto")
 require("dotenv").config();
 
@@ -138,7 +139,7 @@ exports.sendPaymentSuccessEmail = async (req, res) => {
 }
 
 // enroll the student in the courses
-const enrollStudents = async (courses, userId) => {
+const enrollStudents = async (courses, userId, res) => {
   if (!courses || !userId) {
     return res
       .status(400)
@@ -150,7 +151,7 @@ const enrollStudents = async (courses, userId) => {
       // Find the course and enroll the student in it
       const enrolledCourse = await Course.findOneAndUpdate(
         { _id: courseId },
-        { $push: { studentsEnrolled: userId } },
+        { $push: { studentsEnroled: userId } },
         { new: true }
       )
 
@@ -161,22 +162,35 @@ const enrollStudents = async (courses, userId) => {
       }
       console.log("Updated course: ", enrolledCourse)
 
+      const courseProgress = await CourseProgress.create({
+        courseID: courseId,
+        userId: userId,
+        completedVideos: [],
+      })
+      // Find the student and add the course to their list of enrolled courses
       const enrolledStudent = await User.findByIdAndUpdate(
         userId,
         {
           $push: {
             courses: courseId,
+            courseProgress: courseProgress._id,
           },
         },
         { new: true }
       )
+
+      console.log("Enrolled student: ", enrolledStudent)
+      // Send an email notification to the enrolled student
       const emailResponse = await mailSender(
         enrolledStudent.email,
         `Successfully Enrolled into ${enrolledCourse.courseName}`,
         courseEnrollmentEmail(
-          enrolledCourse.courseName,`${enrolledStudent.firstName}`
+          enrolledCourse.courseName,
+          `${enrolledStudent.firstName} ${enrolledStudent.lastName}`
         )
       )
+
+      console.log("Email sent successfully: ", emailResponse.response)
     } catch (error) {
       console.log(error)
       return res.status(400).json({ success: false, error: error.message })
