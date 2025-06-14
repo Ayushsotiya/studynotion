@@ -23,13 +23,13 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: [
-      'http://localhost:5173',
-      'https://studynotion-wr2q.vercel.app'
-    ],
+    origin: (origin, callback) => {
+      callback(null, origin); // reflect the origin back
+    },
     credentials: true,
   })
 );
+
 
 
 app.use(
