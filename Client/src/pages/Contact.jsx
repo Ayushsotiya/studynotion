@@ -1,9 +1,9 @@
 import React from "react"
 
 import Footer from "../components/common/Footer"
-import ContactForm from "../components/contactPage/ContactForm"
+import ContactForm from "../components/ContactPage/ContactForm"
 import ContactDetails from "../components/contactPage/ContactDetails"
-
+  
 const Contact = () => {
   return (
     <div>
