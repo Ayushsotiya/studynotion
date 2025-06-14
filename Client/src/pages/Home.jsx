@@ -5,7 +5,8 @@ import Highlighttext from '../components/core/HomePage/HighlightText';
 import CTAButton from '../components/core/HomePage/CTAButton';
 import Banner from "../assets/Images/banner.mp4";
 import CodeBlocks from "../components/core/HomePage/CodeBlocks";
-import TimeLineSection from '../components/core/HomePage/TImelineSection';
+import TimelineSection from "../components/core/HomePage/TimelineSection"
+
 import LearningLanguageSection from '../components/core/HomePage/LearningLanguageSection';
 import InstructorSection from "../components/core/HomePage/InstructorSection"
 import Footer from "../components/common/Footer";
@@ -127,7 +128,7 @@ const Home = () => {
               <CTAButton active={true} linkto={"signup"}><div>Learn more</div></CTAButton>
             </div>
           </div>
-          <TimeLineSection />
+          <TimelineSection />
           <LearningLanguageSection />
         </div>
       </div>
