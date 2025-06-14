@@ -12,7 +12,7 @@ import Footer from "../components/common/Footer";
 // import ReviewSlider from "../components/common/ReviewSlider";
 import ExploreMore from "../components/core/HomePage/ExploreMore"
 
-const Home = () => {
+const Home = () => {  
   return (
     <div>
       {/* section 1  */}
