@@ -22,11 +22,15 @@ database.connect();
 app.use(express.json());
 app.use(cookieParser());
 app.use(
-    cors({
-        origin: 'http://localhost:5173',
-        credentials: true,
-    })
-)
+  cors({
+    origin: [
+      'http://localhost:5173',
+      'https://studynotion-wr2q.vercel.app'
+    ],
+    credentials: true,
+  })
+);
+
 
 app.use(
     fileUpload({
