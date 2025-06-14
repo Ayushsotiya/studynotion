@@ -2,7 +2,7 @@ import React from "react"
 
 import Footer from "../components/common/Footer"
 import ContactForm from "../components/ContactPage/ContactForm"
-import ContactDetails from "../components/contactPage/ContactDetails"
+import ContactDetails from "../components/ContactPage/ContactDetails";
   
 const Contact = () => {
   return (
@@ -13,7 +13,7 @@ const Contact = () => {
           <ContactDetails />
         </div>
 
-        {/* Contact-Form */}
+        {/* Contact-Form */}  
         <div className="lg:w-[60%]">
           <ContactForm />
         </div>
