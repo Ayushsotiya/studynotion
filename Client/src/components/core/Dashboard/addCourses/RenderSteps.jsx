@@ -2,7 +2,7 @@ import React from "react"
 import { useSelector } from "react-redux"
 
 import CourseBuilderForm from "./CourseBuilder/CourseBuilderForm"
-import CourseInformationForm from "./CourseInformation/CourseInformationForm"
+import CourseInformationForm from "./Courseinformation/CourseInformationForm"
 import PublishCourse  from "./PublishCourse/index"
 import { FaCheck } from "react-icons/fa"
 
