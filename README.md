@@ -1,4 +1,4 @@
-# 🎓 StudyNotion - Full Stack EdTech Platform
+![image](https://github.com/user-attachments/assets/a14dc240-b0e1-4bb9-9dd6-a8f411d0587c)# 🎓 StudyNotion - Full Stack EdTech Platform
 
 StudyNotion is a modern, fully-featured EdTech platform where **students** can purchase courses, and **instructors** can create and manage educational content.  
 Built with the **MERN stack**, it includes secure authentication, role-based access, cloud media uploads, and payment integration.
@@ -40,10 +40,20 @@ Built with the **MERN stack**, it includes secure authentication, role-based acc
 
 ## 📸 Preview
 
-*(Add screenshots here)*  
-![Homepage](https://imgur.com/sample1.png)  
-![Course View](https://imgur.com/sample2.png)  
-![Instructor Dashboard](https://imgur.com/sample3.png)
+
+## 📸 Screenshots
+
+### 🏠 Homepage
+![Homepage](client/src/assets/screenshot/ss1.png)
+
+### 📚 Course Page
+![Course](client/src/assets/screenshot/ss2.png)
+
+### 🎥 Video Player
+![Player](client/src/assets/screenshot/ss3.png)
+
+
+
 
 ---
 
