@@ -3,9 +3,9 @@ const Course = require("../models/Course")
 const User = require("../models/User")
 const mailSender = require("../utils/mailSender")
 const mongoose = require("mongoose")
-const {courseEnrollmentEmail} = require("../mail/templates/courseEnrollmentEmail");
+const { courseEnrollmentEmail } = require("../mail/templates/courseEnrollmentEmail");
 const { paymentSuccessEmail } = require("../mail/templates/paymentSuccessEmail")
-const CourseProgress  = require("../models/CourseProgress");
+const CourseProgress = require("../models/CourseProgress");
 const crypto = require("crypto")
 require("dotenv").config();
 
@@ -151,7 +151,7 @@ const enrollStudents = async (courses, userId, res) => {
       // Find the course and enroll the student in it
       const enrolledCourse = await Course.findOneAndUpdate(
         { _id: courseId },
-        { $push: { studentsEnroled: userId } },
+        { $push: { studentsEnrolled: userId } },
         { new: true }
       )
 
@@ -167,9 +167,9 @@ const enrollStudents = async (courses, userId, res) => {
         userId: userId,
         completedVideos: [],
       })
+
       // Find the student and add the course to their list of enrolled courses
-      const enrolledStudent = await User.findByIdAndUpdate(
-        userId,
+      const enrolledStudent = await User.findByIdAndUpdate(userId,
         {
           $push: {
             courses: courseId,

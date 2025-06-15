@@ -1,12 +1,13 @@
 const Profile = require('../models/Profile');
 const User = require('../models/User');
-const {uploadImageToCloudinary} = require('../utils/imageUploader');
-
+const { uploadImageToCloudinary } = require('../utils/imageUploader');
+const { convertSecondsToDuration } = require('../utils/secToDuration');
+const CourseProgress = require("../models/CourseProgress");
 //Method for updating a profile
 exports.updateProfile = async (req, res) => {
-    try {   
+    try {
         //get data
-        const {dateOfBirth='', about='', contactNumber, gender=''} = req.body;
+        const { dateOfBirth = '', about = '', contactNumber, gender = '' } = req.body;
         //get userId
         const id = req.user.id;
 
@@ -19,7 +20,7 @@ exports.updateProfile = async (req, res) => {
         profile.about = about;
         profile.contactNumber = contactNumber;
         profile.gender = gender;
-        
+
         //Save the updated profile
         await profile.save();
 
@@ -53,33 +54,33 @@ exports.deleteAccount = async (req, res) => {
         //get id
         const id = req.user.id;
         //validation of id
-        const user = await User.findById({_id: id})
+        const user = await User.findById({ _id: id })
         //delete profile
-        if(!user) {
+        if (!user) {
             return res.status(404).send({
                 success: false,
                 message: 'User Not Found',
             });
         }
         //delete associated profile with user
-        await Profile.findByIdAndDelete({_id: user.additionalDetails});
+        await Profile.findByIdAndDelete({ _id: user.additionalDetails });
         //TODO: HW unenroll user form all enroled courses
         //Now delete user
-        await User.findByIdAndDelete({_id:id});
+        await User.findByIdAndDelete({ _id: id });
         //return response
         return res.status(200).json({
             success: true,
             message: 'User Deleted Successfully',
         });
 
-    } catch(error) {
+    } catch (error) {
         return res
             .status(500)
             .json({
-            success: false,
-            message: 'User Cannot Be Deleted',
-            error: error.message,
-        });
+                success: false,
+                message: 'User Cannot Be Deleted',
+                error: error.message,
+            });
     }
 }
 
@@ -87,7 +88,7 @@ exports.getAllUserDetails = async (req, res) => {
     try {
         //get id
         const id = req.user.id;
-        
+
         //validation and get user details
         const userDetails = await User.findById(id)
             .populate('additionalDetails')
@@ -99,8 +100,8 @@ exports.getAllUserDetails = async (req, res) => {
             message: 'User Data Fetched Successfully',
             data: userDetails,
         });
-        
-    } catch(error) {
+
+    } catch (error) {
         return res.status(500).json({
             success: false,
             message: error.message,
@@ -120,11 +121,11 @@ exports.updateDisplayPicture = async (req, res) => {
         )
         console.log(image);
         const updatedProfile = await User.findByIdAndUpdate(
-            {_id: userId},
-            {image: image.secure_url},
-            {new: true}
+            { _id: userId },
+            { image: image.secure_url },
+            { new: true }
         )
-        res.send ({
+        res.send({
             success: true,
             message: `Image Updated Successfully`,
             data: updatedProfile,
@@ -139,36 +140,70 @@ exports.updateDisplayPicture = async (req, res) => {
 };
 
 exports.getEnrolledCourses = async (req, res) => {
-  try {
-    const userId = req.user.id;
+    try {
+        const userId = req.user.id;
 
-    const userDetails = await User.findOne({ _id: userId })
-      .populate({
-        path: 'courses',
-        populate: {
-          path: 'courseContent',
-          populate: {
-            path: 'subSection',
-          },
-        },
-      })
-      .exec();
-
-    if (!userDetails) {
-      return res.status(400).json({
-        success: false,
-        message: `Could not find user with ID: ${userId}`,
-      });
+        let userDetails = await User.findOne({ _id: userId })
+            .populate({
+                path: 'courses',
+                populate: {
+                    path: 'courseContent',
+                    populate: {
+                        path: 'subSection',
+                    },
+                },
+            })
+            .exec();
+            console.log("1")
+        userDetails = userDetails.toObject()
+        console.log("1.5")
+        console.log(userDetails);   
+        var SubsectionLength = 0
+        for (var i = 0; i < userDetails.courses.length; i++) {
+            let totalDurationInSeconds = 0
+            SubsectionLength = 0
+            for (var j = 0; j < userDetails.courses[i].courseContent.length; j++) {
+                totalDurationInSeconds += userDetails.courses[i].courseContent[
+                    j
+                ].subSection.reduce((acc, curr) => acc + parseInt(curr.timeDuration), 0)
+                userDetails.courses[i].totalDuration = convertSecondsToDuration(
+                    totalDurationInSeconds
+                )
+                SubsectionLength +=
+                    userDetails.courses[i].courseContent[j].subSection.length
+            }
+            let courseProgressCount = await CourseProgress.findOne({
+                courseID: userDetails.courses[i]._id,
+                userId: userId,
+            })
+            courseProgressCount = courseProgressCount?.completedVideos.length
+            if (SubsectionLength === 0) {
+                userDetails.courses[i].progressPercentage = 100
+            } else {
+                // To make it up to 2 decimal point
+                const multiplier = Math.pow(10, 2)
+                userDetails.courses[i].progressPercentage =
+                    Math.round(
+                        (courseProgressCount / SubsectionLength) * 100 * multiplier
+                    ) / multiplier
+            }
+        }
+        console.log("2")
+        if (!userDetails) {
+            return res.status(400).json({
+                success: false,
+                message: `Could not find user with ID: ${userId}`,
+            });
+        }
+        console.log("3")
+        return res.status(200).json({
+            success: true,
+            data: userDetails.courses,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+        });
     }
-
-    return res.status(200).json({
-      success: true,
-      data: userDetails.courses,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
 };

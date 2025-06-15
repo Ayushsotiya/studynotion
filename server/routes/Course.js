@@ -89,7 +89,7 @@ router.post('/getCategoryPageDetails', categoryPageDetails);
 //*****************************************************************************
 //              Rating And Review
 //*****************************************************************************
-router.get('/createRating', auth, isStudent, createRating);
+router.post('/createRating', auth, isStudent, createRating);
 router.get('/getAverageRating', getAverageRating);
 router.get('/getReviews', getAllRatingAndReviews);
 

@@ -4,12 +4,13 @@ import { useSelector } from 'react-redux';
 import { BsChevronDown } from "react-icons/bs"
 import { IoIosArrowBack } from "react-icons/io"
 import IconBtn from "../../common/IconBtn"
-const VideoDetailsSidebar = () => {
+const VideoDetailsSidebar = ({setReviewModal}) => {
   const [activeStatus, setActiveStatus] = useState("")
   const [videoBarActive, setVideoBarActive] = useState("")
   const navigate = useNavigate()
   const location = useLocation()
   const { sectionId, subSectionId } = useParams()
+
   const {
     courseSectionData,
     courseEntireData,

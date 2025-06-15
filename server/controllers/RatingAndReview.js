@@ -5,15 +5,22 @@ const Course = require('../models/Course');
 exports.createRating = async (req, res) => {
     try {
         //get user ID
-        const userId = req.body.user.id;
+
+        const userId = req.user.id;
         //fetch data from req body
         const {rating, review, courseId} = req.body;
         //check if user is enrolled or not
+        if(!userId||!review||!courseId||!rating){
+            return res.status(404).json({
+                success:false,
+                message:"Please provide all the details",
+            })
+        }
         const courseDetails = await Course.findOne({
                                     _id: courseId,
-                                    studentsEnrolled: {$eleMatch: {$eq: userId} }, 
+                                    studentsEnrolled:  userId , 
                                 });
-
+       
         if(!courseDetails) {
             return res.status(404).json({
                 success: false,
@@ -28,21 +35,22 @@ exports.createRating = async (req, res) => {
             }
         );
 
-        if(!alreadyReviewed) {
+        if(alreadyReviewed) {
             return res.status(403).json({
                 success: false, 
                 message: 'Course is already reviewed by the user',
             });
         }
         //create rating and review
+        console.log("4");
         const ratingReview = await RatingAndReview.create(
-            {
-                rating, review, 
+            { 
                 course: courseId, 
                 user: userId,
+                reviews:review,
+                ratings:rating,
             }
         );
-
         //update course with this rating/review
         const updatedCourseDetails = await Course.findByIdAndUpdate({_id: courseId}, 
             {
@@ -52,7 +60,6 @@ exports.createRating = async (req, res) => {
             },
             {new: true}
         );
-
         console.log(updatedCourseDetails);
         //return response
         return res.status(200).json({
@@ -60,7 +67,7 @@ exports.createRating = async (req, res) => {
             message: 'Rating and Reviews created successfully',
             ratingReview,
         })
-
+     console.log("7");
     } catch (error) {
         console.log(error);
         return res.status(500).json({
