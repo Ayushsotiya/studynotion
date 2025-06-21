@@ -38,20 +38,19 @@ Built with the **MERN stack**, it includes secure authentication, role-based acc
 
 ---
 
+
 ## 📸 Preview
 
-
-## 📸 Screenshots
-
 ### 🏠 Homepage
-![Homepage](client/src/assets/screenshot/ss1.png)
+![Homepage](https://github.com/Ayushsotiya/studynotion/blob/master/Client/src/assets/screenshot/ss1.png)
+
 
 ### 📚 Course Page
-![Course](client/src/assets/screenshot/ss2.png)
+![Course Page](https://github.com/Ayushsotiya/studynotion/blob/master/Client/src/assets/screenshot/ss2.png)
 
-### 🎥 Video Player
-![Player](client/src/assets/screenshot/ss3.png)
 
+### View Course Page
+![Course Player](https://github.com/Ayushsotiya/studynotion/blob/master/Client/src/assets/screenshot/ss4.png)
 
 
 
@@ -83,11 +82,13 @@ npm install
 
 # Install server dependencies
 cd server
+
 npm install
 
 
 # Install client dependencies
 cd ../client
+
 npm install
 
 
@@ -95,6 +96,7 @@ npm install
 #set up the env file as per env.example file for both the client and  server folder
 # Time to run the project
 1)Comeback to the root folder
+
 2)Type npm run dev in the terminal
 
 
