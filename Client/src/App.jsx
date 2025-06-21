@@ -25,6 +25,7 @@ import CourseDetails from "./pages/CourseDetails";
 import Cart from "./components/core/Dashboard/cart/index"
 import ViewCourse from "./pages/ViewCourse";
 import VideoDetails from "./components/core/ViewCourse/VideoDetails"
+import Instructor from './components/core/Dashboard/instructorDashboard/Instructor';
 
 export default function App() {
 
@@ -58,6 +59,7 @@ export default function App() {
           {
             user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
               <>
+                <Route path='dashboard/instructor' element={<Instructor/>}></Route>
                 <Route path="dashboard/add-course" element={<AddCourses />} />
                 <Route path="dashboard/my-courses" element={<MyCourses />} />
                 <Route path="dashboard/edit-course/:courseId" element={<EditCourse />} />
